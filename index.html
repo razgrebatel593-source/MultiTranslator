@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Мини-переводчик</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Нейросетевой машинный переводчик на 14 языков (NLLB-200). Работает в браузере или через локальный Python-сервер.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+
+  <header class="top">
+    <h1>🌐 Мини-переводчик</h1>
+    <div class="seg" role="tablist" aria-label="Режим работы">
+      <button id="modeBrowser" role="tab" data-mode="browser">В браузере</button>
+      <button id="modeServer" role="tab" data-mode="server">Python-сервер</button>
+    </div>
+  </header>
+
+  <p class="hint" id="modeHint"></p>
+
+  <div class="server-row" id="serverRow" hidden>
+    <label for="serverUrl">Адрес сервера</label>
+    <input id="serverUrl" type="text" spellcheck="false" placeholder="http://localhost:8000">
+    <span class="badge" id="serverBadge">—</span>
+  </div>
+
+  <section class="langbar">
+    <select id="src" aria-label="Язык оригинала"></select>
+    <button id="swap" class="icon" title="Поменять языки местами (Alt+S)" aria-label="Поменять языки">⇄</button>
+    <select id="tgt" aria-label="Язык перевода"></select>
+  </section>
+
+  <section class="panels">
+    <div class="panel">
+      <textarea id="input" placeholder="Введите или вставьте текст…" spellcheck="false" autofocus></textarea>
+      <div class="panel-foot">
+        <span id="count">0</span>
+        <span class="spacer"></span>
+        <button id="openFile" class="link">Открыть .txt</button>
+        <button id="clear" class="link">Очистить</button>
+        <input id="file" type="file" accept=".txt,text/plain" hidden>
+      </div>
+    </div>
+    <div class="panel">
+      <textarea id="output" placeholder="Перевод появится здесь" readonly></textarea>
+      <div class="panel-foot">
+        <span id="detected"></span>
+        <span class="spacer"></span>
+        <button id="copy" class="link">Копировать</button>
+        <button id="save" class="link">Скачать .txt</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="actions">
+    <button id="go" class="primary">Перевести <kbd>Ctrl</kbd>+<kbd>Enter</kbd></button>
+  </section>
+
+  <section class="status" aria-live="polite">
+    <div class="bar" id="bar" hidden><div id="barFill"></div></div>
+    <div id="status"></div>
+  </section>
+
+  <footer>
+    Модель NLLB-200 (Meta) · 14 языков · <a href="https://github.com/" id="repoLink" target="_blank" rel="noopener">GitHub</a>
+  </footer>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
